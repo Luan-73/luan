@@ -27,7 +27,7 @@ with col2:
 if b1:
     with col3:
         st.title('Bài hát yêu thích')
-        st.write('Gone')
+        #st.write('Gone')
         #audio = open('Gone.mp3','rb')
         #st.audio(audio,format='audio/mp3')
         #st.write('All of the lights')
@@ -108,7 +108,7 @@ if b1:
 if b2:
     with col3:
         st.title('Bài hát yêu thích')
-        st.write('Barbed Wire')
+        #st.write('Barbed Wire')
         #audio = open('Barbed Wire.mp3','rb')
         #st.audio(audio,format='audio/mp3')
         #st.write('Hol Up')
