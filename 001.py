@@ -28,7 +28,7 @@ videos = {
 
 st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
-tab1, tab2, tab3 = st.tabs(["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo" ])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ"])
 
 with tab1:
     st.header(f"Các bài hát của {selected_artist} 🎵")
@@ -71,3 +71,15 @@ with tab3:
         st.subheader(entry.title)
         st.write(entry.published)
         st.write(entry.link)
+with tab4:
+    st.header("Cập nhật giá vàng từ Vietnamnet")
+    feet = feedparser.parse("https://vietnamnet.vn/rss/kinh-doanh.rss")
+    gold_news = [entry for entry in feet.entries if "vàng" in entry.title.lower() or "giá vàng" in entry.summary.lower()]
+    if gold_news:
+        for entry in gold_news[:5]:
+            st.subheader(entry.title)
+            st.write(entry.published)
+            st.write(entry.link)
+    else:
+        st.info("Không tìm thấy tin tức về giá vàng.")
+     
