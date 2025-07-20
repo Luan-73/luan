@@ -174,7 +174,7 @@ with tab8:
     st.header("Lượng nước uống khuyến nghị mỗi ngày")
     st.title("Bạn nên uống bao nhiêu lít nước mỗi ngày?")
     age3 = st.number_input("Nhập tuổi của bạn:", min_value=0.0, max_value=120.0, value=18.0, step=1.0)
-    if st.button("Kiểm tra số lít nước"):
+    if st.button("Kiểm tra số lít nước khuyến nghị"):
         if age3 < 4:
             st.info("Bạn nên uống **1.3 lít nước** mỗi ngày.")
         elif 4<= age3 <=8:
