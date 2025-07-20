@@ -28,7 +28,7 @@ videos = {
 
 st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
-tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs(["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi"])
+tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước"])
 
 with tab1:
     st.header(f"Các bài hát của {selected_artist} 🎵")
@@ -156,7 +156,7 @@ with tab6:
         else:
             st.error("Rủi ro cao, nên gặp bác sĩ càng sớm càng tốt")  
 with tab7: 
-    st.header("A Kiểm tra số bước đi nên đi mỗi ngày")
+    st.header("Kiểm tra số bước đi nên đi mỗi ngày")
     st.title("Bạn nên đi bao nhiêu bước mỗi ngày?")
     age2 = st.number_input("Nhập tuổi của bạn:", min_value=0.0, max_value=130.0, value=18.0, step=1.0)
     if st.button("Kiểm tra số bước"):
@@ -170,3 +170,20 @@ with tab7:
             st.warning("Bạn nên đi **6000-8000 bước** mỗi ngày.")
         else:
             st.error("A Có lỗi xảy ra. Vui lòng kiểm tra lại thông tin.")
+with tab8:
+    st.header("Lượng nước uống khuyến nghị mỗi ngày")
+    st.title("Bạn nên uống bao nhiêu lít nước mỗi ngày?")
+    age3 = st.number_input("Nhập tuổi của bạn:", min_value=0.0, max_value=130.0, value=18.0, step=1.0)
+    if st.button("Kiểm tra số lít nước"):
+        if age3 < 4:
+            st.info("Bạn nên uống **1.3 lít nước** mỗi ngày.")
+        elif 4<= age3 <=8:
+            st.info("Bạn nên uống **1.7 lít nước** mỗi ngày.")
+        elif 9<= age3 <=13:
+            st.info("Bạn nên uống **2.1-2.4 lít nước** mỗi ngày.")
+        elif 14<= age3 <=18:
+            st.info("Bạn nên uống **2.3-3.3 lít nước** mỗi ngày.")
+        elif 19<= age3 <=50:
+            st.warning("Bạn nên uống **2.7 lít nước(nữ)/3.3 lít nước(nam)** mỗi ngày.")
+        else:
+            st.error("Bạn nên uống **2.5-3.0 lít nước** mỗi ngày tuỳ vào sức khoẻ và hoạt động.")
