@@ -28,7 +28,7 @@ videos = {
 
 st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
-tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước"])
+tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8,tab9 = st.tabs(["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC"])
 
 with tab1:
     st.header(f"Các bài hát của {selected_artist} 🎵")
@@ -187,3 +187,63 @@ with tab8:
             st.warning("Bạn nên uống **2.7 lít nước(nữ)/3.3 lít nước(nam)** mỗi ngày.")
         else:
             st.error("Bạn nên uống **2.5-3.0 lít nước** mỗi ngày tuỳ vào sức khoẻ và hoạt động.")
+with tab9:
+    st.header("Kiểm tra tính cách theo DISC")
+    st.markdown("Chọn một mô tả đúng nhất và một mô tả ít đúng nhất trong từng nhóm")
+    groups = [
+        {
+            "D": "Tôi quyết đoán và thích kiểm soát",
+            "I": "Tôi thích thân thiện và nói chuyện dễ dàng",
+            "S": "Tôi kiên nhẫn và đáng tin cậy",
+            "C": "Tôi chính xác và có hệ thống",
+        },
+        {
+            "D": "Tôi thích thử thách và hành động nhanh",
+            "I": "Tôi tràn đầy năng lượng và lạc quan",
+            "S": "Tôi ổn định và hỗ trợ người khác",
+            "C": "Tôi làm việc theo quy tắc rõ ràng",
+        },
+        {
+            "D": "Tôi thích kiểm soát kết quả",
+            "I": "Tôi thích được công nhận",
+            "S": "Tôi ưu tiên sự hài hoà",
+            "C": "Tôi chú ý đến việc chi tiết và phân tích",
+        }
+    ]
+    scores = {"D": 0, "I":0, "S": 0, "C": 0 }
+    for idx , group in enumerate(groups):
+        st.markdown(f"### nhóm {idx + 1}")
+        options = list(group.values())
+        keys = list(group.keys())
+        most = st.radio("Mô tả đúng nhất với bạn ", options, key = f"most_{idx}")
+        least = st.radio("Mô tả ít đúng nhất với bạn ", options, key=f"least_{idx}")
+        for key, val in group.items():
+            if val == most:
+                score[key] += 1
+            if val == least:
+                score[key] -= 1
+    if st.button("Xem kết quả DISC "):
+        st.header(" Kết quả của bạn ")
+        max_type = max(score, key = score.get)
+
+        for style, score in scores.items():
+            st.write(f"{style}: {score} điểm ")
+        st.markdown(f"Tính nổi bật nhất của bạn là: {max_type}**")
+        descriptions = {
+            "D": "Quyết đoán, định hướng kết quả và thích kiểm soát",
+            "I": "Giao tiếp tốt, tràn đầy năng lượng và truyền cảm hứng",
+            "S": "Kiên nhẫn, đáng tin cậy và hỗ trợ người khác",
+            "C": "Chính xác, tuân thủ quy trình và thích phân tích logic"
+        } 
+        st.info(descriptions[max_type])
+        st.markdown("----")
+        st.markdown("Mô tả chi tiết các nhóm DISC")
+        st.markdown("""
+            - **D (Dominance)**: Người lãnh đạo, chủ động, thích cạnh tranh. Ví dụ: CEO, nhà sáng lập.  
+            - **I (Influence)**: Người truyền cảm hứng, thích giao tiếp, có sức hút. Ví dụ: người làm marketing, diễn giả.  
+            - **S (Steadiness)**: Người hỗ trợ, trung thành, kiên nhẫn. Ví dụ: giáo viên, điều dưỡng.  
+            - **C (Conscientiousness)**: Người phân tích, tỉ mỉ, theo quy trình. Ví dụ: kế toán, kỹ sư.
+        """)
+        st.caption("Đây chỉ là bài tham khảo về chỉ số DISC")
+
+
