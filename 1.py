@@ -224,7 +224,7 @@ with tab9:
                 scores[key] -= 1
     if st.button("Xem kết quả DISC "):
         st.header(" Kết quả của bạn ")
-        max_type = max(score, key = score.get)
+        max_type = max(scores, key = score.get)
 
         for style, score in scores.items():
             st.write(f"{style}: {score} điểm ")
@@ -245,6 +245,7 @@ with tab9:
             - **C (Conscientiousness)**: Người phân tích, tỉ mỉ, theo quy trình. Ví dụ: kế toán, kỹ sư.
         """)
         st.caption("Đây chỉ là bài tham khảo về chỉ số DISC")
+
 
 
 
