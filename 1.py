@@ -219,9 +219,9 @@ with tab9:
         least = st.radio("Mô tả ít đúng nhất với bạn ", options, key=f"least_{idx}")
         for key, val in group.items():
             if val == most:
-                score[key] += 1
+                scores[key] += 1
             if val == least:
-                score[key] -= 1
+                scores[key] -= 1
     if st.button("Xem kết quả DISC "):
         st.header(" Kết quả của bạn ")
         max_type = max(score, key = score.get)
@@ -245,5 +245,6 @@ with tab9:
             - **C (Conscientiousness)**: Người phân tích, tỉ mỉ, theo quy trình. Ví dụ: kế toán, kỹ sư.
         """)
         st.caption("Đây chỉ là bài tham khảo về chỉ số DISC")
+
 
 
