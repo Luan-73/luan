@@ -31,12 +31,35 @@ st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
 menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC"])
-with tab1:
+if menu == '🎤 MV yêu thích':
+    st.sidebar.title("🎶 Danh sách nghệ sĩ")
+    selected_artist = st.sidebar.radio("Chọn nghệ sĩ:", ["Đen Vâu", "Hà Anh Tuấn", "Sơn Tùng M-TP"])
+
+    videos = {
+        "Đen Vâu": [
+            ("Bữa ăn cho em", "https://www.youtube.com/watch?v=ukHK1GVyr0I"),
+            ("Mang tiền về cho mẹ", "https://www.youtube.com/watch?v=UVbv-PJXm14"),
+            ("Trời hôm nay nhiều mây cực!", "https://www.youtube.com/watch?v=MBaF0l-PcRY"),
+            ("Hai triệu năm", "https://www.youtube.com/watch?v=LSMDNL4n0kM")
+        ],
+        "Hà Anh Tuấn": [
+            ("Tuyết rơi mùa hè", "https://www.youtube.com/watch?v=pTh3KCD7Euc"),
+            ("Nước ngoài", "https://www.youtube.com/watch?v=pU3O9Lnp-Z0"),
+            ("Tháng tư là lời nói dối của em", "https://www.youtube.com/watch?v=UCXao7aTDQM"),
+            ("Xuân thì", "https://www.youtube.com/watch?v=3s1r_g_jXNs")
+        ],
+        "Sơn Tùng M-TP": [
+            ("Lạc trôi", "https://www.youtube.com/watch?v=Llw9Q6akRo4"),
+            ("Chúng ta không thuộc về nhau", "https://www.youtube.com/watch?v=qGRU3sRbaYw"),
+            ("Muộn rồi mà sao còn", "https://www.youtube.com/watch?v=xypzmu5mMPY"),
+            ("Hãy trao cho anh", "https://www.youtube.com/watch?v=knW7-x7Y7RE")
+        ]
+    }
     st.header(f"Các bài hát của {selected_artist} 🎵")
     for title, url in videos[selected_artist]:
         st.subheader(title)
         st.video(url)
-with tab2:
+elif menu == '💤 Dự đoán giờ ngủ':
     st.header("🔮 Dự đoán giờ ngủ mỗi đêm")
     x = [
             [10, 1, 8],
@@ -65,14 +88,14 @@ with tab2:
             st.info("😅 Có thể bạn đang vận động nhiều – ngủ bù hợp lý nhé.")
         else:
             st.success("✅ Lượng ngủ lý tưởng! Hãy giữ thói quen tốt nhé.")
-with tab3:
+elif menu == '📰 Đọc báo':
     st.header("Tin tức mới nhất trên VnExpress")
     feed = feedparser.parse("https://vnexpress.net/rss/tin-moi-nhat.rss")
     for entry in feed.entries[:10]:
         st.subheader(entry.title)
         st.write(entry.published)
         st.write(entry.link)
-with tab4:
+elif menu == 'Giá vàng':
     st.header("Cập nhật giá vàng từ Vietnamnet")
     feet = feedparser.parse("https://vietnamnet.vn/rss/kinh-doanh.rss")
     gold_news = [entry for entry in feet.entries if "vàng" in entry.title.lower() or "giá vàng" in entry.summary.lower()]
@@ -83,7 +106,7 @@ with tab4:
             st.write(entry.link)
     else:
         st.info("Không tìm thấy tin tức về giá vàng.")
-with tab5:
+elif menu == 'Kiểm tra sức khoẻ':
     st.header("Kiểm tra chỉ số BMI của bạn ")
     can_nang = st.number_input("Nhập cân nặng của bạn (kg)", min_value=10.0,max_value=200.0,value=60.0,step=0.1)
     chieu_cao = st.number_input("Nhập chiều cao của bạn (m)",min_value=1.0,max_value=2.5,value=1.7,step=0.01)
@@ -98,7 +121,7 @@ with tab5:
             st.warning("Bạn đang thừa cân. Nên cân đối chế độ ăn và tập thể dục.")
         else:
             st.error("Bạn đang béo phì. Nên gặp chuyên gia dinh dưỡng hoặc bác sĩ để được tư vấn.")
-with tab6:
+elif menu == 'Nhịp tim':
     st.header("Kiểm tra nhịp tim xem có nên gặp bác sĩ không ")
     x = np.array([
         # Trẻ em
@@ -156,7 +179,7 @@ with tab6:
             st.warning("Có dấu hiệu bất thường cần hỏi thêm ý kiến bác sĩ ")
         else:
             st.error("Rủi ro cao, nên gặp bác sĩ càng sớm càng tốt")  
-with tab7: 
+elif menu == 'Bước đi': 
     st.header("Kiểm tra số bước đi nên đi mỗi ngày")
     st.title("Bạn nên đi bao nhiêu bước mỗi ngày?")
     age2 = st.number_input("Nhập tuổi của bạn:", min_value=0.0, max_value=130.0, value=18.0, step=1.0)
@@ -171,7 +194,7 @@ with tab7:
             st.warning("Bạn nên đi **6000-8000 bước** mỗi ngày.")
         else:
             st.error("A Có lỗi xảy ra. Vui lòng kiểm tra lại thông tin.")
-with tab8:
+elif menu == 'Uống nước':
     st.header("Lượng nước uống khuyến nghị mỗi ngày")
     st.title("Bạn nên uống bao nhiêu lít nước mỗi ngày?")
     age3 = st.number_input("Nhập tuổi của bạn:", min_value=0.0, max_value=120.0, value=18.0, step=1.0)
@@ -188,7 +211,7 @@ with tab8:
             st.warning("Bạn nên uống **2.7 lít nước(nữ)/3.3 lít nước(nam)** mỗi ngày.")
         else:
             st.error("Bạn nên uống **2.5-3.0 lít nước** mỗi ngày tuỳ vào sức khoẻ và hoạt động.")
-with tab9:
+elif menu == 'Kiểm tra tính cách theo DISC':
     st.header("Kiểm tra tính cách theo DISC")
     st.markdown("Chọn một mô tả đúng nhất và một mô tả ít đúng nhất trong từng nhóm")
     groups = [
