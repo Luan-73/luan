@@ -7,7 +7,7 @@ st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
 
-menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC"])
+menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC","Nhân tướng học"])
 if menu == '🎤 MV yêu thích':
     st.sidebar.title("🎶 Danh sách nghệ sĩ")
     selected_artist = st.sidebar.radio("Chọn nghệ sĩ:", ["Đen Vâu", "Hà Anh Tuấn", "Sơn Tùng M-TP"])
@@ -246,4 +246,51 @@ elif menu == 'Kiểm tra tính cách theo DISC':
             - **C (Conscientiousness)**: Người phân tích, tỉ mỉ, theo quy trình. Ví dụ: kế toán, kỹ sư.
         """)
         st.caption("Đây chỉ là bài tham khảo về chỉ số DISC")
+elif menu == "Nhân tướng học":
+    st.header("Phân tích tướng mặt theo ngũ hành")
+    st.markdown("Chọn các đặc điểm bạn cảm thấy đúng với gương mặt của mình")
+    st.subheader("Đôi mắt")
+    eyes_good = st.multiselect("Đặc điểm tốt về đôi mắt: ",[
+        "Mắt sáng và có thần (Tư duy nhanh nhạy, có năng lực tích cực)",
+        "Mắt dài và đều (tầm nhìn chiến lược và có nội tâm sâu sắc)",
+        "Mắt cười (dễ gần, thân thiện và giao tiếp tốt)"
+    ])
+    eyes_bad = st.multiselect("Đặc điểm chưa tốt về mắt: ",[
+        "Mắt lờ đờ, thiêu thần (thiếu sinh khí và mệt mỏi)",
+        "Mắt không cân xứng (thiếu cân bằng và cảm giác nhìn yếu)",
+        "Tròng trắng lẫn tròng đen (dễ gặp bất ổn, tâm lý dao động)"
+    ])
+    st.subheader("Mũi")
+    nose_good = st.multiselect("Đặc điểm tốt về mũi: ", [
+        "Mũi cao thẳng và đầy đặn (tài vận tốt lập nghiệp dễ dàng)",
+        "Cánh mũi dày, đều (Biết giữ tiền và quản lý tài chính tốt)",
+        "Đầu mũi tròn đầy (Ham học hỏi, lòng bao dung, nhân hậu)"
+    ])
+    nose_bad = st.multiselect("Đặc điểm chưa tốt về mũi: ", [
+        "Mũi lệch (tính cách thiếu ổn định)",
+        "Mũi hếch (khó giữ tài sản, hay tiêu xài)",
+        "Cánh mũi mỏng (tài chính bấp bênh)"
+    ])
+    st.subheader("Trán")
+    forehead_good = st.multiselect("Đặc điểm tốt về trán: ", [
+        "Trán cao và rộng (Thông minh, tư duy logic)",
+        "Trán đầy đặn, trơn láng (sự nghiệp tốt, thuận lợi)",
+        "Không có nếp nhăn sớm (suy nghĩ tích cực ổn định)"
+    ])
+    forehead_bad = st.multiselect("Đặc điểm chưa tốt về trán: ",[
+        "Trán thấp và hẹp (tầm nhìn hạn chế)",
+        "Trán nghiêng (thiếu kiên định)",
+        "Trán lõm (dễ bị chi phối thiếu quyết đoán)"
+    ])
+    st.subheader("Tai")
+    ears_good = st.multiselect("Đặc điểm tốt về tai: ", [
+        "Tai đầy, vành rõ (sức khoẻ tốt, có phúc khí)",
+        "Dái tai dày (hậu vận vững vàng)",
+        "Tai cao hơn chân mày (tư duy tốt, trí tuệ sáng)"
+    ])
+    ears_bad = st.multiselect("Đặc điểm chưa tốt về tai: ", [
+        "Tai mỏng như giấy (yếu vận, dễ bị ảnh hưởng)",
+        "Tai vểnh ra bên ngoài (nóng bỏng, bốc đồng)",
+        "Tai thấp hơn lông mày (thiếu tư duy chiến lược)"
+    ])
 
