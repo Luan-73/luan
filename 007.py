@@ -3,7 +3,6 @@ from sklearn.linear_model import LinearRegression
 import feedparser
 import numpy as np
 import time
-import streamlit.components.v1 as components
 st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
@@ -306,15 +305,9 @@ elif menu == "Nhắc nhở nghỉ ngơi và tập thể dục":
             my_bar.progress(percent)
             time.sleep(1)
         st.success("Hết giờ rồi! Hãy đứng dậy nghỉ ngơi và tập vài động tác nhé!")
-        components.html(
-            """
-            <audio autoplay>
-              <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
-              <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.mp3" type="audio/mpeg">
-            </audio>
-            """,
-            height=0,
-            width=0
-        )
+        audio_file = open("alarm.mp3","rb")
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes,format="audio/mp3",start_time=0)
+
 
 
