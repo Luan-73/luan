@@ -3,6 +3,7 @@ from sklearn.linear_model import LinearRegression
 import feedparser
 import numpy as np
 import time
+import streamlit.components.v1 as components
 st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
@@ -315,4 +316,5 @@ elif menu == "Nhắc nhở nghỉ ngơi và tập thể dục":
             height=0,
             width=0
         )
+
 
