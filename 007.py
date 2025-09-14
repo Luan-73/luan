@@ -305,6 +305,14 @@ elif menu == "Nhắc nhở nghỉ ngơi và tập thể dục":
             my_bar.progress(percent)
             time.sleep(1)
         st.success("Hết giờ rồi! Hãy đứng dậy nghỉ ngơi và tập vài động tác nhé!")
-        audio_file = open("alarm.mp3","rb")
-        audio_bytes = audio_file.read()
-        st.audio(audio_bytes,format="audio/mp3",start_time=0)
+        components.html(
+            """
+            <audio autoplay>
+              <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
+              <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.mp3" type="audio/mpeg">
+            </audio>
+            """,
+            height=0,
+            width=0
+        )
+
