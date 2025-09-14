@@ -2,12 +2,12 @@ import streamlit as st
 from sklearn.linear_model import LinearRegression
 import feedparser
 import numpy as np
-
+import time
 st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
 
-menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC","Nhân tướng học"])
+menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC","Nhân tướng học","Nhắc nhở nghỉ ngơi và tập thể dục"])
 if menu == '🎤 MV yêu thích':
     st.sidebar.title("🎶 Danh sách nghệ sĩ")
     selected_artist = st.sidebar.radio("Chọn nghệ sĩ:", ["Đen Vâu", "Hà Anh Tuấn", "Sơn Tùng M-TP"])
@@ -293,4 +293,18 @@ elif menu == "Nhân tướng học":
         "Tai vểnh ra bên ngoài (nóng bỏng, bốc đồng)",
         "Tai thấp hơn lông mày (thiếu tư duy chiến lược)"
     ])
-
+elif menu == "Nhắc nhở nghỉ ngơi và tập thể dục":
+    st.subheader("Nhắc nhở nghỉ ngơi và tập thể dục")
+    minutes = st.number_input("Nhập số phút làm việc: ",min_value=1,step=1,value=1)
+    if st.button("Bắt đầu đếm ngược"):
+        st.info(f"Bắt đầu đếm ngược {minutes} phút")
+        my_bar = st.progress(0)
+        total_seconds = minutes * 60
+        for sec in range(total_seconds):
+            percent = int(((sec+1)/total_seconds)*100)
+            my_bar.progress(percent)
+            time.sleep(1)
+        st.success("Hết giờ rồi! Hãy đứng dậy nghỉ ngơi và tập vài động tác nhé!")
+        audio_file = open("alarm.mp3","rb")
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes,format="audio/mp3",start_time=0)
