@@ -7,7 +7,7 @@ st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
 
-menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC","Nhân tướng học","Nhắc nhở nghỉ ngơi và tập thể dục"])
+menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC","Nhân tướng học","Nhắc nhở nghỉ ngơi và tập thể dục","Ứng dụng theo dõi sức khoẻ nâng cao"])
 if menu == '🎤 MV yêu thích':
     st.sidebar.title("🎶 Danh sách nghệ sĩ")
     selected_artist = st.sidebar.radio("Chọn nghệ sĩ:", ["Đen Vâu", "Hà Anh Tuấn", "Sơn Tùng M-TP"])
@@ -308,6 +308,69 @@ elif menu == "Nhắc nhở nghỉ ngơi và tập thể dục":
         audio_file = open("alarm.mp3","rb")
         audio_bytes = audio_file.read()
         st.audio(audio_bytes,format="audio/mp3",start_time=0)
-
-
+elif menu == "Ứng dụng theo dõi sức khoẻ nâng cao":
+    st.set_page_config(page_title="Ứng dụng Sức Khoẻ Nâng Cao",layout="centered")
+    st.title("Ứng dụng Theo Dõi Sức Khoẻ Nâng Cao")
+    st.header("Nhập thông tin cá nhân")
+    name = st.text_input("Họ và tên:")
+    age = st.number_input("Tuổi:",min_value=0,max_value=120,step=1)
+    gender = st.radio("Giới tính:",("Nam","Nữ"))
+    height = st.number_input("Chiều cao (cm):",min_value=50.0,max_value=250.0,step = 0.1)
+    weight = st.number_input("Cân nặng (kg):",min_value=10.0,max_value=250.0,step = 0.1)
+    activity_level= st.selectbox("Mức độ hoạt động thể chất:",[
+        "Ít vận động",
+        "Vận động nhẹ (1-3 buổi/tuần)",
+        "Vận động vừa (3-5 buổi/tuần)",
+        "Vận động nhiều (6-7 buổi/tuần)",
+        "Vận động rất nhiều (2 lần/ngày)"
+    ])
+    if st.button("Phân tích sức khoẻ"):
+        if height>0 and weight>0:
+            height_m = height/100
+            bmi = weight/(height_m**2)
+            if gender == "Nam":
+                bmr = 10*weight+6.25*height-5*age+5
+            else:
+                bmr = 10*weight+6.25*height-5*age-161
+            activity_factors = {
+                "Ít vận động": 1.2,
+                "Vận động nhẹ (1-3 buổi/tuần)":1.375,
+                "Vận động vừa (3-5 buổi/tuần)":1.55,
+                "Vận động nhiều (6-7 buổi/tuần)":1.725,
+                "Vận động rất nhiều (2 lần/ngày)":1.9
+            }
+            activity_factor = activity_factors[activity_level]
+            tdee = bmr * activity_factor
+            water_intake = weight *35/1000
+            st.subheader("Kết quả phân tích")
+            st.write(f"**Chào {name}!**")
+            st.write(f"**Chỉ số BMI:** '{bmi:.2f}'")
+            st.write(f"**BMR(Tỷ lệ trao đổi chất cơ bản):** '{bmr:.0f}' kcal/ngày")
+            st.write(f"**TDEE(Năng lượng tiêu hao mỗi ngày):** '{tdee:.0f}' kcal/ngày")
+            st.write(f"**Lượng nước nên uống mỗi ngày:** '{water_intake:.0f}' lít")
+            st.markdown("### Đánh giá chỉ số BMI:")
+            if bmi<18.5:
+                st.warning("Bạn đang thiếu cân. Hãy tăng dinh dưỡng.")
+            elif 18.5 <= bmi <24.9:
+                st.success("Bạn có cân nặng bình thường. Duy trì chế độ sống lành mạnh!")
+            elif 25<=bmi<29.9:
+                st.warning("Bạn đang thừa cân. Hãy cân bằng lại chế độ ăn và hoạt động")
+            else:
+                st.error("Bạn đang béo phì. Cần tham khảo chuyên gia để cải thiện sức khoẻ")
+            
+            st.markdown("### Gợi ý chế độ ăn (Theo mục tiêu):")
+            col1,col2 = st.columns(2)
+            with col1:
+                st.info("**Duy trì cân nặng:**")
+                st.write(f"- Ăn khoảng '{tdee:.0f}' kcal/ngày")
+            with col2:
+                st.info("**Giảm cân nhẹ:**")
+                st.write(f"- Ăn khoảng '{tdee-300:.0f}' kcal/ngày")
+            st.markdown("### Gợi ý thực đơn mẫu:")
+            st.markdown("""
+            - **Sáng:** Trứng luộc, bánh mì nguyên cám, trái cây
+            - **Trưa** Cơm gạo lứt, ức gà, rau luộc, canh
+            - **Tối** Salad rau xanh, cá hấp, trái cây ít ngọt
+            - **Snack:** Hạt khô,sữa chua ít đường
+             """)
 
