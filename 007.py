@@ -7,7 +7,7 @@ st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
 
-menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC","Nhân tướng học","Nhắc nhở nghỉ ngơi và tập thể dục","Ứng dụng theo dõi sức khoẻ nâng cao","Theo dõi sức khoẻ về nhịp tim"])
+menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "💤 Dự đoán giờ ngủ", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Nhịp tim","Bước đi","Uống nước","Kiểm tra tính cách theo DISC","Nhân tướng học","Nhắc nhở nghỉ ngơi và tập thể dục","Ứng dụng theo dõi sức khoẻ nâng cao"])
 if menu == '🎤 MV yêu thích':
     st.sidebar.title("🎶 Danh sách nghệ sĩ")
     selected_artist = st.sidebar.radio("Chọn nghệ sĩ:", ["Đen Vâu", "Hà Anh Tuấn", "Sơn Tùng M-TP"])
@@ -373,8 +373,7 @@ elif menu == "Ứng dụng theo dõi sức khoẻ nâng cao":
             - **Tối** Salad rau xanh, cá hấp, trái cây ít ngọt
             - **Snack:** Hạt khô,sữa chua ít đường
              """)
-elif menu == "Theo dõi sức khoẻ về nhịp tim":
-    st.header("Theo dõi sức khoẻ về nhịp tim")
+st.header("Theo dõi sức khoẻ về nhịp tim")
 sys = st.number_input("Huyết áp tâm thu(mmhg): ",min_value=50, max_value = 250,step=1)
 dia = st.number_input("Huyết áp tâm trương(mmhg)",min_value=30,max_value=150,step=1)
 heart_rate = st.number_input("Nhịp tim khi nghỉ ngơi(bpm): ",min_value=30,max_value=200,step=1)
@@ -398,5 +397,6 @@ if st.button("Phân tích tim mạch:"):
         st.success("Nhịp tim bình thường")
     else:
         st.success("Nhịp tim cao")
+
 
 
