@@ -397,6 +397,21 @@ if st.button("Phân tích tim mạch:"):
         st.success("Nhịp tim bình thường")
     else:
         st.success("Nhịp tim cao")
+# 📖 Lý thuyết nhịp tim theo độ tuổi
+    # ==========================
+    st.markdown("### 📖 Nhịp tim theo độ tuổi")
+    st.markdown("""
+    - Công thức nhịp tim tối đa: `220 - tuổi`  
+    - Vùng tập luyện hiệu quả: **50% - 85% nhịp tim tối đa**
+    | Tuổi | Tối đa (bpm) | 50-85% (bpm) |
+    |------|--------------|--------------|
+    | 20   | 200          | 100 - 170    |
+    | 30   | 190          | 95 - 162     |
+    | 40   | 180          | 90 - 153     |
+    | 50   | 170          | 85 - 145     |
+    | 60   | 160          | 80 - 136     |
+    | 70   | 150          | 75 - 128     |
+    """)
 
 
 
