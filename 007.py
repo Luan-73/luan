@@ -429,6 +429,48 @@ if st.button("Phân tích tim mạch:"):
     | 60   | 160          | 80 - 136     |
     | 70   | 150          | 75 - 128     |
     """)
+    st.header("Phát triển chiều cao")
+
+    if  age > 0:
+        st.subheader("Phân tích tiềm năng phát triển chiều cao")
+        if gender == "Nam":
+            max_growth_age = 21
+        else:
+            max_growth_age = 19
+        if age >= max_growth_age:
+            st.info("""Ở độ tuổi hiện tại, khả năng tăng chiều cao tự nhiên gần như là không còn. 
+                    Bạn nên tập luyện và bổ sung dinh dưỡng để giữ vóc dáng cân đối.
+                    """)
+        else:
+            remaining_years = max_growth_age - age
+            st.write(f"Bạn vẫn còn khoảng {remaining_years} năm để phát triển chiều cao tối ưu.")
+            if activity_level == "Ít vận động":
+                growth_potential  = "Thấp"
+                st.warning("Mức độ vận động thấp có thể làm hạn chế phát triển chiều cao. Hãy cố gắng vận động nhiều hơn mỗi ngày.")
+            elif activity_level == ["Vận động nhẹ (1-3 buổi/tuần)", "Vận động vừa (3-5 buổi/tuần)"]:
+                growth_potential  = "Trung bình"
+                st.info("Mức độ vận động khá tốt, bạn nên bổ sung thêm các bài tập kéo dãn hoặc thể thao ngoài trời để tối ưu phát triển.")
+            else:
+                growth_potential = "cao"
+                st.success("Rất tốt! Mức độ vận động cao giúp kích thích hormone tăng trưởng, hỗ trợ phát triển chiều cao tối đa.")
+            
+            st.markdown(f"Tiềm năng phát triển chiều cao của bạn: {growth_potential}")
+            st.markdown("Gợi ý phát triển chiều cao tối đa")
+            with st.expander("Chế độ dinh dưỡng nên bổ sung"):
+                st.markdown("""
+                    -**Protein:** Thịt nạc, cá, trứng, đậu phụ
+                    -**Canxi:** Sữa, phô mai, sữa chua, cá hồi, rau xanh đậm 
+                    -**Vitamin D:** Phơi nắng 15-20 phút hoặc ăn trứng, cá
+                    -**Kẽm và Magie:** Có trong hải sản, các loại hạt, đậu, ngũ cốc nguyên hạt
+                    -**Tránh:** Nước ngọt có gas, đồ ăn nhanh, đồ chiên rán nhiều mỡ
+""")
+            with st.expander("Bài tập hỗ trợ phát triển chiều cao"):
+                st.markdown(""""
+                    -**Tập hàng ngày:** Bơi lội, nhảy dây, bóng rổ, đu xà, yoga kéo giãn
+                    -**Buổi sáng:** Kéo dãn cơ thể, vươn vai, hít thở sâu ngoài trời
+                    -**Thói quen:** Giữ lưng thẳng khi ngồi và đứng, tránh gù lưng
+                            """)
+
 
 
 
