@@ -470,6 +470,24 @@ if st.button("Phân tích tim mạch:"):
                     -**Buổi sáng:** Kéo dãn cơ thể, vươn vai, hít thở sâu ngoài trời
                     -**Thói quen:** Giữ lưng thẳng khi ngồi và đứng, tránh gù lưng
                             """)
+            with st.expander("Thói quen sinh hoạt và giấc ngủ"):
+                st.markdown("""
+                    -Ngủ đủ 8-10 tiếng/ngày, đặc biệt ngủ từ 22h đến 6h sáng
+                    -Hạn chế thức khuya, dùng điện thoại trước khi ngủ
+                    -Uống đủ nước (theo khuyến nghị ở phần trên)
+                    -Duy trì cân nặng hợp lý để không ảnh hưởng đến hormone tăng trưởng
+""")
+            if gender == "Nam":
+                avg_height = 175
+            else:
+                avg_height = 162
+            potential_height = height + remaining_years * 0.8
+            if potential_height > avg_height:
+                potential_height = avg_height + 2
+            st.markdown(f"Chiều cao tiềm năng ước tính: {potential_height:.1f} cm")
+    else:
+        st.warning("Vui lòng nhập thông tin cá nhân ở phần đầu(tuổi, giới tính, chiều cao...) trước khi phân tích")
+
 
 
 
