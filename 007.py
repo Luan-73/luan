@@ -487,6 +487,36 @@ if st.button("Phân tích tim mạch:"):
             st.markdown(f"Chiều cao tiềm năng ước tính: {potential_height:.1f} cm")
     else:
         st.warning("Vui lòng nhập thông tin cá nhân ở phần đầu(tuổi, giới tính, chiều cao...) trước khi phân tích")
+    st.header("Trợ lý AI - Tư vấn sức khoẻ thông tin")
+    st.markdown("""
+        Nhập câu hỏi hoặc yêu cầu để được AI gợi ý chế độ ăn, bài tập, hoặc cách cải thiện sức khoẻ dựa trên thông tin của bạn
+""")
+    user_questions = st.text_area("Câu hỏi của bạn")
+    if st.button("Hỏi AI"):
+        if not name or age == 0 or height == 0 or weight == 0:
+            st.warning("Vui lòng nhập đầy đủ thông tin cá nhân ở phần đầu trước khi hỏi AI")
+        else:
+            health_summary = f"""
+            Thông tin người dùng:
+            -Họ tên: {name}
+            -Tuổi: {age}
+            -Giới tính: {gender}
+            -Chiều cao: {height} cm
+            -Cân nặng: {weight} kg
+            -Mức độ vận động: {activity_level}
+            -BMI: {weight/((height/100)**2) : .2f}
+""" 
+
+            st.info(" Gợi ý từ AI: ")
+            st.markdown(f"""
+            Dựa trên thông tin cá nhân của bạn (**{age} tuổi, {gender.lower()}, BMI {weight/((height/100)**2) : .2f}**),
+            bạn nên:
+            -Ăn cân đối bằng các nhóm chất(đạm, tinh bột, rau xanh, vitamin)
+            -Uống khoảng **{weight * 35/1000 : .1f} lít nước / ngày
+            -Tập luyện đều đặn {activity_level.lower()}
+            -Ngủ đủ giấc 7 - 9 tiếng, tránh bị stress
+""")
+
 
 
 
