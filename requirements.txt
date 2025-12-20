@@ -3,3 +3,4 @@ scikit-learn
 feedparser
 pandas
 numpy
+matplotlib
