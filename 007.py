@@ -710,6 +710,8 @@ elif menu == "Ứng dụng theo dõi sức khoẻ nâng cao":
         st.warning("Hãy phân tích sức khoẻ để hệ thống tính TDEE trước khi lập kế hoạch")
 elif menu == "Game":
     tabA,tabB,tabC,tabD = st.tabs(["Game tung xúc sắc", "Game đoán số", "Kéo - Búa - Bao","Game tính toán nhanh"])
+    with st.sidebar:
+        st.video("https://dn720301.ca.archive.org/0/items/rpreplay-final-1680875953/RPReplay_Final1680875953.mp4",autoplay=True, muted=True)
     with tabA:
         st.header("Game tung xúc sắc")
         st.image("https://thumb.ac-illust.com/11/11208a7f39207d32b1cff1a66d22dd75_t.jpeg")
@@ -843,6 +845,7 @@ elif menu == "Game":
             else:
                 st.error(f"sai rùi, đáp án đúng là {correct} ")
                 st.image("https://media.tenor.com/jXMsEpz30nIAAAAM/cat-cat-meme.gif")
+
 
 
 
