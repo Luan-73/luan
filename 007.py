@@ -427,13 +427,13 @@ elif menu == "Ứng dụng theo dõi sức khoẻ nâng cao":
             st.write(f"**Lượng nước nên uống mỗi ngày:** '{water_intake:.0f}' lít")
             st.markdown("### Đánh giá chỉ số BMI:")
             if bmi<18.5:
-                st.warning(f"Bạn đang thiếu cân. Hãy tăng dinh dưỡng. Bạn nên tăng {(18.5 - bmi)*(height_m**2)}")
+                st.warning(f"Bạn đang thiếu cân. Hãy tăng dinh dưỡng. Bạn nên tăng {round(((18.5 - bmi)*(height_m**2)),2)} kg")
             elif 18.5 <= bmi <24.9:
                 st.success("Bạn có cân nặng bình thường. Duy trì chế độ sống lành mạnh!")
             elif 25<=bmi<29.9:
-                st.warning(f"Bạn đang thừa cân. Hãy cân bằng lại chế độ ăn và hoạt động. Bạn nên giảm {(bmi - 24.9)*(height_m**2)}")
+                st.warning(f"Bạn đang thừa cân. Hãy cân bằng lại chế độ ăn và hoạt động. Bạn nên giảm {round(((bmi - 24.9)*(height_m**2)),2)} kg")
             else:
-                st.error(f"Bạn đang béo phì. Cần tham khảo chuyên gia để cải thiện sức khoẻ. Bạn nên giảm {(bmi - 24.9)*(height_m**2)}")
+                st.error(f"Bạn đang béo phì. Cần tham khảo chuyên gia để cải thiện sức khoẻ. Bạn nên giảm {round(((bmi - 24.9)*(height_m**2)),2)} kg")
             
             st.markdown("### Gợi ý chế độ ăn (Theo mục tiêu):")
             col1,col2 = st.columns(2)
@@ -845,6 +845,7 @@ elif menu == "Game":
             else:
                 st.error(f"sai rùi, đáp án đúng là {correct} ")
                 st.image("https://media.tenor.com/jXMsEpz30nIAAAAM/cat-cat-meme.gif")
+
 
 
 
