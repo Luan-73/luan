@@ -898,6 +898,13 @@ elif menu == "Game":
             st.error("Sai rồi, bạn nên thử lại !!!!")
         if st.session_state.finished and remaining <=0:
             st.info(f"Đáp án đúng là: **{puzzle['answer']}**")
+        if st.button("Vòng mới"):
+            st.session_state.dhbc_index = random.randint(0,len(puzzles) - 1)
+            st.session_state.start_time = time.time()
+            st.session_state.duration = 45
+            st.session_state.finished = False
+            st.session_state.result = ""
+
 
 
 
