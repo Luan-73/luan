@@ -886,7 +886,7 @@ elif menu == "Game":
             st.error("Hết giờ")
         guess = st.text_input("Nhập đáp án: ", disabled=st.session_state.finished)
         if st.button("Kiểm tra") and not st.session_state.finished:
-            if guess.lower().strip == puzzle["answer"].lower():
+            if guess.lower().strip() == puzzle["answer"].lower():
                 st.session_state.result = "correct"
                 st.session_state.finished = True
             else:
@@ -898,6 +898,7 @@ elif menu == "Game":
             st.error("Sai rồi, bạn nên thử lại !!!!")
         if st.session_state.finished and remaining <=0:
             st.info(f"Đáp án đúng là: **{puzzle['answer']}**")
+
 
 
 
