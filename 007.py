@@ -709,7 +709,7 @@ elif menu == "Ứng dụng theo dõi sức khoẻ nâng cao":
     else:
         st.warning("Hãy phân tích sức khoẻ để hệ thống tính TDEE trước khi lập kế hoạch")
 elif menu == "Game":
-    tabA,tabB,tabC,tabD = st.tabs(["Game tung xúc sắc", "Game đoán số", "Kéo - Búa - Bao","Game tính toán nhanh"])
+    tabA,tabB,tabC,tabD,tabF = st.tabs(["Game tung xúc sắc", "Game đoán số", "Kéo - Búa - Bao","Game tính toán nhanh","Game đuổi hình bắt chữ"])
     with st.sidebar:
         st.video("https://dn720301.ca.archive.org/0/items/rpreplay-final-1680875953/RPReplay_Final1680875953.mp4",autoplay=True, muted=True)
     with tabA:
@@ -845,11 +845,59 @@ elif menu == "Game":
             else:
                 st.error(f"sai rùi, đáp án đúng là {correct} ")
                 st.image("https://media.tenor.com/jXMsEpz30nIAAAAM/cat-cat-meme.gif")
-
-
-
-
-
+    with tabF:
+        st.header("Game đuổi hình bắt chữ")
+        puzzles = puzzles = [
+            {
+                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469022597_dhbc.jpg",
+                "answer": "thương tâm"
+            },
+            {
+                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469011991_vai-tro.jpg",
+                "answer": "vai trò"
+            },
+            {
+                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469118011_tam-giac-can.jpg",
+                "answer": "tam giác cân"
+            },
+            {
+                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469120784_kien-truc-su.jpg",
+                "answer": "kiến trúc sư"
+            },
+            {
+                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469120698_dan-bau.jpg",
+                "answer": "đàn bầu"
+            }
+        ]
+        if "dhbc_index" not in st.session_state:
+            st.session_state.dhbc_index = random.randint(0,len(puzzles) - 1)
+            st.session_state.start_time = time.time()
+            st.session_state.duration = 45
+            st.session_state.finished = False
+            st.session_state.result = ""
+        puzzle = puzzles[st.session_state.dhbc_index]
+        st.image(puzzle["image"], width=300)
+        elapsed = int(time.time() - st.session_state.start_time)
+        remaining = st.session_state.duration - elapsed
+        if remaining > 0 and not st.session_state.finished:
+            st.warning(f"còn lại: {remaining} giây")
+        else:
+            st.session_state.finished = True
+            st.error("Hết giờ")
+        guess = st.text_input("Nhập đáp án: ", disabled=st.session_state.finished)
+        if st.button("Kiểm tra") and not st.session_state.finished:
+            if guess.lower().strip == puzzle["answer"].lower():
+                st.session_state.result = "correct"
+                st.session_state.finished = True
+            else:
+                st.session_state.result = "wrong"
+        if st.session_state.result == "correct":
+            st.success("chính xác")
+            st.balloons()
+        elif st.session_state.result == "wrong":
+            st.error("Sai rồi, bạn nên thử lại !!!!")
+        if st.session_state.finished and remaining <=0:
+            st.info(f"Đáp án đúng là: **{puzzle['answer']}**")
 
 
 
