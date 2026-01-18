@@ -901,9 +901,10 @@ elif menu == "Game":
         if st.button("Vòng mới"):
             st.session_state.dhbc_index = random.randint(0,len(puzzles) - 1)
             st.session_state.start_time = time.time()
-            st.session_state.duration = 45
             st.session_state.finished = False
             st.session_state.result = ""
+            st.rerun()
+
 
 
 
