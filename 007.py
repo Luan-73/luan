@@ -875,7 +875,7 @@ elif menu == "Game":
             st.session_state.finished = False
             st.session_state.result = ""
 
-        st.info(f"⭐ Điểm của bạn: {st.session_state.score}")
+        st.info(f"Điểm của bạn: {st.session_state.score}")
 
         puzzle = puzzles[st.session_state.dhbc_index]
         st.image(puzzle["image"], width=300)
@@ -884,14 +884,14 @@ elif menu == "Game":
         remaining = st.session_state.duration - elapsed
 
         if remaining > 0 and not st.session_state.finished:
-            st.warning(f"⏳ Còn lại: {remaining} giây")
+            st.warning(f"Còn lại: {remaining} giây")
         else:
             st.session_state.finished = True
-            st.error("⛔ Hết giờ!")
+            st.error("Hết giờ!")
 
-        guess = st.text_input("✍️ Nhập đáp án:", disabled=st.session_state.finished)
+        guess = st.text_input("Nhập đáp án:", disabled=st.session_state.finished)
 
-        if st.button("✅ Kiểm tra") and not st.session_state.finished:
+        if st.button("Kiểm tra") and not st.session_state.finished:
             if guess.lower().strip() == puzzle["answer"]:
                 st.session_state.result = "correct"
                 st.session_state.score += 10
@@ -901,20 +901,21 @@ elif menu == "Game":
             st.session_state.finished = True
 
         if st.session_state.result == "correct":
-            st.success("🎉 Chính xác!")
+            st.success("Chính xác!")
             st.balloons()
         elif st.session_state.result == "wrong":
-            st.error("❌ Sai rồi!")
+            st.error("Sai rồi!")
 
         if st.session_state.finished:
-            st.info(f"👉 Đáp án đúng: **{puzzle['answer']}**")
+            st.info(f"Đáp án đúng: **{puzzle['answer']}**")
 
         if st.button("🔄 Vòng mới"):
             st.session_state.dhbc_index = random.randint(0, len(puzzles) - 1)
             st.session_state.start_time = time.time()
             st.session_state.finished = False
             st.session_state.result = ""
-            st.rerun())
+            st.rerun()
+
 
 
 
