@@ -846,64 +846,76 @@ elif menu == "Game":
                 st.error(f"sai rùi, đáp án đúng là {correct} ")
                 st.image("https://media.tenor.com/jXMsEpz30nIAAAAM/cat-cat-meme.gif")
     with tabF:
-        st.header("Game đuổi hình bắt chữ")
-        puzzles = puzzles = [
-            {
-                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469022597_dhbc.jpg",
-                "answer": "thương tâm"
-            },
-            {
-                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469011991_vai-tro.jpg",
-                "answer": "vai trò"
-            },
-            {
-                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469118011_tam-giac-can.jpg",
-                "answer": "tam giác cân"
-            },
-            {
-                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469120784_kien-truc-su.jpg",
-                "answer": "kiến trúc sư"
-            },
-            {
-                "image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469120698_dan-bau.jpg",
-                "answer": "đàn bầu"
-            }
-        ]
-        if "dhbc_index" not in st.session_state:
-            st.session_state.dhbc_index = random.randint(0,len(puzzles) - 1)
+        st.header("🎮 Game đuổi hình bắt chữ")
+
+        puzzles = [
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469022597_dhbc.jpg", "answer": "thương tâm"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469011991_vai-tro.jpg", "answer": "vai trò"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469118011_tam-giac-can.jpg", "answer": "tam giác cân"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469120784_kien-truc-su.jpg", "answer": "kiến trúc sư"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1469120698_dan-bau.jpg", "answer": "đàn bầu"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468933365_sau-sac.jpg", "answer": "sâu sắc"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468933323_mat-bao.jpg", "answer": "mặt báo"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468932180_cao-hung.jpg", "answer": "cao hứng"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468811373_cao-nien.jpg", "answer": "cao niên"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468811344_cam-sung.jpg", "answer": "cắm sừng"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468386543_binh-chan-nhu-vai.jpg", "answer": "bình chân như vại"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468286389_ao-uoc.jpg", "answer": "ao ước"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468286072_vo-mong.jpg", "answer": "vỡ mộng"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468286022_thuong-hieu.jpg", "answer": "thương hiệu"},
+        {"image": "https://cdn.lazi.vn/storage/uploads/dhbc/1468285782_thong-thoang.jpg", "answer": "thông thoáng"},
+    ]
+
+    # INIT SESSION
+        if "score" not in st.session_state:
+            st.session_state.score = 0
+            st.session_state.dhbc_index = random.randint(0, len(puzzles) - 1)
             st.session_state.start_time = time.time()
             st.session_state.duration = 45
             st.session_state.finished = False
             st.session_state.result = ""
+
+        st.info(f"⭐ Điểm của bạn: {st.session_state.score}")
+
         puzzle = puzzles[st.session_state.dhbc_index]
         st.image(puzzle["image"], width=300)
+
         elapsed = int(time.time() - st.session_state.start_time)
         remaining = st.session_state.duration - elapsed
+
         if remaining > 0 and not st.session_state.finished:
-            st.warning(f"còn lại: {remaining} giây")
+            st.warning(f"⏳ Còn lại: {remaining} giây")
         else:
             st.session_state.finished = True
-            st.error("Hết giờ")
-        guess = st.text_input("Nhập đáp án: ", disabled=st.session_state.finished)
-        if st.button("Kiểm tra") and not st.session_state.finished:
-            if guess.lower().strip() == puzzle["answer"].lower():
+            st.error("⛔ Hết giờ!")
+
+        guess = st.text_input("✍️ Nhập đáp án:", disabled=st.session_state.finished)
+
+        if st.button("✅ Kiểm tra") and not st.session_state.finished:
+            if guess.lower().strip() == puzzle["answer"]:
                 st.session_state.result = "correct"
-                st.session_state.finished = True
+                st.session_state.score += 10
             else:
                 st.session_state.result = "wrong"
+                st.session_state.score -= 2
+            st.session_state.finished = True
+
         if st.session_state.result == "correct":
-            st.success("chính xác")
+            st.success("🎉 Chính xác!")
             st.balloons()
         elif st.session_state.result == "wrong":
-            st.error("Sai rồi, bạn nên thử lại !!!!")
-        if st.session_state.finished and remaining <=0:
-            st.info(f"Đáp án đúng là: **{puzzle['answer']}**")
-        if st.button("Vòng mới"):
-            st.session_state.dhbc_index = random.randint(0,len(puzzles) - 1)
+            st.error("❌ Sai rồi!")
+
+        if st.session_state.finished:
+            st.info(f"👉 Đáp án đúng: **{puzzle['answer']}**")
+
+        if st.button("🔄 Vòng mới"):
+            st.session_state.dhbc_index = random.randint(0, len(puzzles) - 1)
             st.session_state.start_time = time.time()
             st.session_state.finished = False
             st.session_state.result = ""
-            st.rerun()
+            st.rerun())
+
 
 
 
