@@ -875,7 +875,6 @@ elif menu == "Game":
             st.session_state.finished = False
             st.session_state.result = ""
 
-        st.info(f"Điểm của bạn: {st.session_state.score}")
 
         puzzle = puzzles[st.session_state.dhbc_index]
         st.image(puzzle["image"], width=300)
@@ -901,6 +900,7 @@ elif menu == "Game":
                 st.session_state.result = "wrong"
                 st.session_state.score -= 2
             st.session_state.finished = True
+            st.info(f"Điểm của bạn: {st.session_state.score}")
 
         if st.session_state.result == "correct":
             st.success("Chính xác!")
@@ -917,6 +917,7 @@ elif menu == "Game":
             st.session_state.finished = False
             st.session_state.result = ""
             st.rerun()
+
 
 
 
