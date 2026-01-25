@@ -882,12 +882,12 @@ elif menu == "Game":
 
         elapsed = int(time.time() - st.session_state.start_time)
         remaining = st.session_state.duration - elapsed
-
+        con_lai = st.empty()
         if remaining > 0 and not st.session_state.finished:
-            st.warning(f"Còn lại: {remaining} giây")
+            con_lai.warning(f"Còn lại: {remaining} giây")
         else:
             st.session_state.finished = True
-            st.error("Hết giờ!")
+            con_lai.error("Hết giờ!")
         if remaining ==0:
             st.session_state.score -= 2
 
@@ -918,6 +918,7 @@ elif menu == "Game":
             st.session_state.finished = False
             st.session_state.result = ""
             st.rerun()
+
 
 
 
