@@ -888,6 +888,7 @@ elif menu == "Game":
         else:
             st.session_state.finished = True
             st.error("Hết giờ!")
+        if remaining ==0:
             st.session_state.score -= 2
 
         guess = st.text_input("Nhập đáp án:", disabled=st.session_state.finished)
@@ -916,6 +917,7 @@ elif menu == "Game":
             st.session_state.finished = False
             st.session_state.result = ""
             st.rerun()
+
 
 
 
