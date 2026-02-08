@@ -987,7 +987,7 @@ elif menu == "Game":
         st.progress(st.session_state.quiz_index/len(questions))
         if st.session_state.quiz_done:
             st.success(f"Hoàn thành ! Điểm của bạn: {st.session_state.quiz_score}/ {len(questions)}")
-            if st.button("Chơi lại"):
+            if st.button("Chơi lại!"):
                 st.session_state.quiz_index = 0
                 st.session_state.quiz_score = 0
                 st.session_state.quiz_done = False
@@ -1026,6 +1026,7 @@ elif menu == "Game":
                     if st.session_state.quiz_index >= len(questions):
                         st.session_state.quiz_done = True
                     st.rerun()
+
 
 
 
