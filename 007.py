@@ -1034,6 +1034,7 @@ elif menu == "Game":
         if st.button("Thêm phần thưởng"):
             if new_prize:
                 st.session_state.prizes.append(new_prize)
+        st.write("Danh sách phần thưởng: ", st.session_state.prizes)
         if st.button("Quay số"):
             if st.session_state.prizes:
                 result = random.choice(st.session_state.prizes)
@@ -1042,6 +1043,7 @@ elif menu == "Game":
                 st.warning("Chưa có phần thưởng")
         if st.button("Reset"):
             st.session_state.prizes = []
+
 
 
 
