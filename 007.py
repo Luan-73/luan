@@ -709,7 +709,7 @@ elif menu == "Ứng dụng theo dõi sức khoẻ nâng cao":
     else:
         st.warning("Hãy phân tích sức khoẻ để hệ thống tính TDEE trước khi lập kế hoạch")
 elif menu == "Game":
-    tabA,tabB,tabC,tabD,tabF,tabE = st.tabs(["Game tung xúc sắc", "Game đoán số", "Kéo - Búa - Bao","Game tính toán nhanh","Game đuổi hình bắt chữ","🎯 Game Trắc Nghiệm"])
+    tabA,tabB,tabC,tabD,tabF,tabE, tabG = st.tabs(["Game tung xúc sắc", "Game đoán số", "Kéo - Búa - Bao","Game tính toán nhanh","Game đuổi hình bắt chữ","🎯 Game Trắc Nghiệm", "Game quay số may mắn"])
     with st.sidebar:
         st.video("https://dn720301.ca.archive.org/0/items/rpreplay-final-1680875953/RPReplay_Final1680875953.mp4",autoplay=True, muted=True)
     with tabA:
@@ -1026,6 +1026,23 @@ elif menu == "Game":
                     if st.session_state.quiz_index >= len(questions):
                         st.session_state.quiz_done = True
                     st.rerun()
+    with tabG:
+        st.title("Game quay số may mắn")
+        if "prizes" not in st.session_state:
+            st.session_state.prizes = []
+        new_prize = st.text_input("Nhập phần thưởng")
+        if st.button("Thêm phần thưởng"):
+            if new_prize:
+                st.session_state.prizes.append(new_prize)
+        if st.button("Quay số"):
+            if st.session_state.prizes:
+                result = random.choice(st.session_state.prizes)
+                st.success(f"Bạn trúng {result}")
+            else:
+                st.warning("Chưa có phần thưởng")
+        if st.button("Reset"):
+            st.session_state.prizes = []
+
 
 
 
