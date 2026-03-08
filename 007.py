@@ -1077,7 +1077,7 @@ elif menu == "Game":
                     spin_placeholder.markdown(
                         f"## Đang quay ... {random.choice(st.session_state.new_prizes)}"
                     )
-                result = random.choice(
+                result = random.choices(
                                         st.session_state.new_prizes,
                                        weight = st.session_state.weights,
                                        k = 1
@@ -1091,6 +1091,7 @@ elif menu == "Game":
             st.session_state.new_prizes = []
             st.session_state.weights = []
             st.success("Đã reset")
+
 
 
 
