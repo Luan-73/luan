@@ -1043,52 +1043,74 @@ elif menu == "Game":
                 st.warning("Chưa có phần thưởng")
         if st.button("Reset"):
             st.session_state.prizes = []
-    with tabH:
-        st.title("Game quay số may mắn")
-        if "new_prizes" not in st.session_state:
-            st.session_state.new_prizes = []
-        if "weights" not in st.session_state:
-            st.session_state.weights = []
-        st.subheader("Thêm phần thưởng")
-        col1,col2 = st.columns(2)
-        with col1:
-            new_prize = st.text_input("Tên phần thưởng ")
-        with col2:
-            weight = st.number_input("Tỷ lệ trúng (%)", 1, 100, 1)
-        if st.button("Thêm"):
-            if new_prize:
-                st.session_state.new_prizes.append(new_prize)
-                st.session_state.weights.append(weight)
-                st.success(f"Đã thêm {new_prize}")
-        st.subheader("Danh sách phần thưởng ")
-        if st.session_state.new_prizes:
-            for i, prize in enumerate(st.session_state.new_prizes):
-                st.write(
-                    f"{i+1}. {prize} | tỷ lệ {st.session_state.weights[i]}%"
-                )
-        else:
-            st.info("Chưa có phần thưởng")
-        
-        st.subheader("Quay số")
-        if st.button("Quay ngay"):
-            if st.session_state.new_prizes:
-                spin_placeholder = st.empty()
-                for i in range(15):
-                    spin_placeholder.markdown(
-                        f"## Đang quay ... {random.choice(st.session_state.new_prizes)}"
-                    )
-                result = random.choices(st.session_state.new_prizes,
-                                       weights = st.session_state.weights,
-                                       k = 1)[0]
-                spin_placeholder.empty()
-                st.balloons()
-                st.success(f"Chúc mừng bạn đã trúng: **{result}**")
-            else:
-                st.warning("Chưa có phần thưởng")
-        if st.button("Reset game"):
-            st.session_state.new_prizes = []
-            st.session_state.weights = []
-            st.success("Đã reset")
+    import streamlit as st
+import random
+import time
+
+st.title("Game quay số may mắn")
+
+if "new_prizes" not in st.session_state:
+    st.session_state.new_prizes = []
+
+if "weights" not in st.session_state:
+    st.session_state.weights = []
+
+st.subheader("Thêm phần thưởng")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    new_prize = st.text_input("Tên phần thưởng")
+
+with col2:
+    weight = st.number_input("Tỷ lệ trúng (%)", min_value=1, max_value=100, value=1)
+
+if st.button("Thêm"):
+    if new_prize:
+        st.session_state.new_prizes.append(new_prize)
+        st.session_state.weights.append(weight)
+        st.success(f"Đã thêm {new_prize}")
+
+st.subheader("Danh sách phần thưởng")
+
+if st.session_state.new_prizes:
+    for i, prize in enumerate(st.session_state.new_prizes):
+        st.write(f"{i+1}. {prize} | tỷ lệ {st.session_state.weights[i]}%")
+else:
+    st.info("Chưa có phần thưởng")
+
+st.subheader("Quay số")
+
+if st.button("Quay ngay"):
+    if st.session_state.new_prizes:
+
+        spin_placeholder = st.empty()
+
+        for i in range(15):
+            spin_placeholder.markdown(
+                f"## Đang quay... {random.choice(st.session_state.new_prizes)}"
+            )
+            time.sleep(0.1)
+
+        result = random.choices(
+            st.session_state.new_prizes,
+            weights=st.session_state.weights,
+            k=1
+        )[0]
+
+        spin_placeholder.empty()
+
+        st.balloons()
+        st.success(f"🎉 Chúc mừng bạn đã trúng: **{result}**")
+
+    else:
+        st.warning("Chưa có phần thưởng")
+
+if st.button("Reset game"):
+    st.session_state.new_prizes = []
+    st.session_state.weights = []
+    st.success("Đã reset")
+
 
 
 
