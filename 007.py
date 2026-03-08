@@ -709,7 +709,7 @@ elif menu == "Ứng dụng theo dõi sức khoẻ nâng cao":
     else:
         st.warning("Hãy phân tích sức khoẻ để hệ thống tính TDEE trước khi lập kế hoạch")
 elif menu == "Game":
-    tabA,tabB,tabC,tabD,tabF,tabE, tabG = st.tabs(["Game tung xúc sắc", "Game đoán số", "Kéo - Búa - Bao","Game tính toán nhanh","Game đuổi hình bắt chữ","🎯 Game Trắc Nghiệm", "Game quay số may mắn"])
+    tabA,tabB,tabC,tabD,tabF,tabE, tabG, tabH = st.tabs(["Game tung xúc sắc", "Game đoán số", "Kéo - Búa - Bao","Game tính toán nhanh","Game đuổi hình bắt chữ","🎯 Game Trắc Nghiệm", "Game quay số may mắn","Game quay số may mắn v2"])
     with st.sidebar:
         st.video("https://dn720301.ca.archive.org/0/items/rpreplay-final-1680875953/RPReplay_Final1680875953.mp4",autoplay=True, muted=True)
     with tabA:
@@ -1089,6 +1089,7 @@ elif menu == "Game":
             st.session_state.new_prizes = []
             st.session_state.weights = []
             st.success("Đã reset")
+
 
 
 
