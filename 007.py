@@ -1054,7 +1054,7 @@ elif menu == "Game":
         with col1:
             new_prize = st.text_input("Tên phần thưởng ")
         with col2:
-            weight = st.text_input("Tỷ lệ trúng (%)", 1, 100, 1)
+            weight = st.number_input("Tỷ lệ trúng (%)", 1, 100, 1)
         if st.button("Thêm"):
             if new_prize:
                 st.session_state.new_prizes.append(new_prize)
@@ -1089,6 +1089,7 @@ elif menu == "Game":
             st.session_state.new_prizes = []
             st.session_state.weights = []
             st.success("Đã reset")
+
 
 
 
