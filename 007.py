@@ -1124,13 +1124,13 @@ elif menu == 'Slot machine':
 
     bet = st.selectbox("Choose your bet", [10, 20, 50, 100], index=2)
 
-    st.write(f"Balance: ${st.session_state.balance}")
-    st.write(f"Total spins: {st.session_state.spins} | Wins: {st.session_state.wins}")
     balance_display = st.empty()
     stats_display = st.empty()
+    balance_display.write(f"Balance: ${st.session_state.balance}")
+    stats_display.write(f"Spins: {st.session_state.spins} | Wins: {st.session_state.wins}")
     slot_display = st.empty()
     slot_display.markdown(f"## {' | '.join(st.session_state.last_spin)}")
-
+    
     spin = st.button(f"Spin ${bet}", disabled=st.session_state.balance < bet)
 
     if spin:
