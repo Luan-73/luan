@@ -1113,47 +1113,93 @@ elif menu == 'Slot machine':
 
     if "balance" not in st.session_state:
         st.session_state.balance = 1000
-
     if "last_spin" not in st.session_state:
-        st.session_state.last_spin = ["❔","❔","❔"]
+        st.session_state.last_spin = ["❔", "❔", "❔"]
+    if "history" not in st.session_state:
+        st.session_state.history = []
+    if "spins" not in st.session_state:
+        st.session_state.spins = 0
+    if "wins" not in st.session_state:
+        st.session_state.wins = 0
+
+    bet = st.selectbox("Choose your bet", [10, 20, 50, 100], index=2)
 
     st.write(f"Balance: ${st.session_state.balance}")
+    st.write(f"Total spins: {st.session_state.spins} | Wins: {st.session_state.wins}")
 
-    st.write(" | ".join(st.session_state.last_spin))
+    slot_display = st.empty()
+    slot_display.markdown(f"## {' | '.join(st.session_state.last_spin)}")
 
-    spin = st.button("Spin $50", disabled=st.session_state.balance < 50)
+    spin = st.button(f"Spin ${bet}", disabled=st.session_state.balance < bet)
 
     if spin:
+        st.session_state.balance -= bet
+        st.session_state.spins += 1
 
-        st.session_state.balance -= 50
+        for _ in range(8):
+            fake_result = random.choices(symbols, weights=weights, k=3)
+            slot_display.markdown(f"## {' | '.join(fake_result)}")
+            time.sleep(0.08)
+
         result = random.choices(symbols, weights=weights, k=3)
         st.session_state.last_spin = result
+        st.session_state.history.insert(0, result)
+        st.session_state.history = st.session_state.history[:5]
+        slot_display.markdown(f"## {' | '.join(result)}")
 
-        if "💀" in result:
+        win = 0
+
+        if result.count("💀") == 3:
             st.session_state.balance = 0
-            st.error("💀 You lost everything!")
+            st.error("💀💀💀 You lost everything!")
 
         elif result.count("7️⃣") == 3:
-            st.session_state.balance += 10000
-            st.success("🎉 JACKPOT! +$10,000")
+            win = bet * 100
+            st.success(f"🎉 JACKPOT! +${win}")
 
         elif result.count("💎") == 3:
-            st.session_state.balance += 1000
-            st.success("💎 Big win! +$1000")
+            win = bet * 20
+            st.success(f"💎 Big win! +${win}")
 
         elif result.count("🍒") == 3:
-            st.session_state.balance += 100
-            st.success("🍒 Small win +$100")
+            win = bet * 5
+            st.success(f"🍒 Nice win! +${win}")
+
+        elif result.count("7️⃣") == 2:
+            win = bet * 10
+            st.success(f"✨ Two 7s! +${win}")
+
+        elif result.count("💎") == 2:
+            win = bet * 3
+            st.success(f"💎 Two diamonds! +${win}")
+
+        elif result.count("🍒") == 2:
+            win = bet
+            st.success(f"🍒 Two cherries! +${win}")
 
         else:
             st.warning("You lost the spin.")
 
+        if win > 0:
+            st.session_state.balance += win
+            st.session_state.wins += 1
+
     if st.session_state.balance == 0:
         st.error("Game Over!")
 
+    st.subheader("Last 5 spins")
+    if st.session_state.history:
+        for h in st.session_state.history:
+            st.write(" | ".join(h))
+    else:
+        st.info("No spins yet.")
+
     if st.button("Reset"):
         st.session_state.balance = 1000
-        st.session_state.last_spin = ["❔","❔","❔"]
+        st.session_state.last_spin = ["❔", "❔", "❔"]
+        st.session_state.history = []
+        st.session_state.spins = 0
+        st.session_state.wins = 0
 
     
 
