@@ -68,7 +68,7 @@ st.title("🎧 Ứng dụng giải trí và sức khỏe")
 
 
 
-menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Kiểm tra tính cách theo DISC","Nhân tướng học","Nhắc nhở nghỉ ngơi và tập thể dục","Ứng dụng theo dõi sức khoẻ nâng cao","Game"])
+menu = st.selectbox("Chọn chức năng mà bạn muốn dùng: ",["🎤 MV yêu thích", "📰 Đọc báo","Giá vàng", "Kiểm tra sức khoẻ","Kiểm tra tính cách theo DISC","Nhân tướng học","Nhắc nhở nghỉ ngơi và tập thể dục","Ứng dụng theo dõi sức khoẻ nâng cao","Game","Slot machine"])
 if menu == '🎤 MV yêu thích':
     st.sidebar.title("🎶 Danh sách nghệ sĩ")
     selected_artist = st.sidebar.radio("Chọn nghệ sĩ:", ["Đen Vâu", "Hà Anh Tuấn", "Sơn Tùng M-TP"])
@@ -1043,90 +1043,119 @@ elif menu == "Game":
                 st.warning("Chưa có phần thưởng")
         if st.button("Reset"):
             st.session_state.prizes = []
-    import streamlit as st
-import random
-import time
+    with tabH:
+        if "new_prizes" not in st.session_state:
+            st.session_state.new_prizes = []
+        
+        if "weights" not in st.session_state:
+            st.session_state.weights = []
+        
+        st.subheader("Thêm phần thưởng")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            new_prize = st.text_input("Tên phần thưởng")
+        
+        with col2:
+            weight = st.number_input("Tỷ lệ trúng (%)", min_value=1, max_value=100, value=1)
+        
+        if st.button("Thêm"):
+            if new_prize:
+                st.session_state.new_prizes.append(new_prize)
+                st.session_state.weights.append(weight)
+                st.success(f"Đã thêm {new_prize}")
+        
+        st.subheader("Danh sách phần thưởng")
+        
+        if st.session_state.new_prizes:
+            for i, prize in enumerate(st.session_state.new_prizes):
+                st.write(f"{i+1}. {prize} | tỷ lệ {st.session_state.weights[i]}%")
+        else:
+            st.info("Chưa có phần thưởng")
+        
+        st.subheader("Quay số")
+        
+        if st.button("Quay ngay"):
+            if st.session_state.new_prizes:
+        
+                spin_placeholder = st.empty()
+        
+                for i in range(15):
+                    spin_placeholder.markdown(
+                        f"## Đang quay... {random.choice(st.session_state.new_prizes)}"
+                    )
+                    time.sleep(0.1)
+        
+                result = random.choices(
+                    st.session_state.new_prizes,
+                    weights=st.session_state.weights,
+                    k=1
+                )[0]
+        
+                spin_placeholder.empty()
+        
+                st.balloons()
+                st.success(f"🎉 Chúc mừng bạn đã trúng: **{result}**")
+        
+            else:
+                st.warning("Chưa có phần thưởng")
+        
+        if st.button("Reset game"):
+            st.session_state.new_prizes = []
+            st.session_state.weights = []
+            st.success("Đã reset")
+elif menu == 'Slot machine':
+    st.title("🎰 High Stakes Slot Machine")
 
-st.title("Game quay số may mắn")
+    symbols = ["🍒", "🍋", "💎", "7️⃣", "💀"]
+    weights = [40, 30, 15, 4, 1]
 
-if "new_prizes" not in st.session_state:
-    st.session_state.new_prizes = []
+    if "balance" not in st.session_state:
+        st.session_state.balance = 1000
 
-if "weights" not in st.session_state:
-    st.session_state.weights = []
+    if "last_spin" not in st.session_state:
+        st.session_state.last_spin = ["❔","❔","❔"]
 
-st.subheader("Thêm phần thưởng")
+    st.write(f"Balance: ${st.session_state.balance}")
 
-col1, col2 = st.columns(2)
+    st.write(" | ".join(st.session_state.last_spin))
 
-with col1:
-    new_prize = st.text_input("Tên phần thưởng")
+    spin = st.button("Spin $50", disabled=st.session_state.balance < 50)
 
-with col2:
-    weight = st.number_input("Tỷ lệ trúng (%)", min_value=1, max_value=100, value=1)
+    if spin:
 
-if st.button("Thêm"):
-    if new_prize:
-        st.session_state.new_prizes.append(new_prize)
-        st.session_state.weights.append(weight)
-        st.success(f"Đã thêm {new_prize}")
+        st.session_state.balance -= 50
+        result = random.choices(symbols, weights=weights, k=3)
+        st.session_state.last_spin = result
 
-st.subheader("Danh sách phần thưởng")
+        if "💀" in result:
+            st.session_state.balance = 0
+            st.error("💀 You lost everything!")
 
-if st.session_state.new_prizes:
-    for i, prize in enumerate(st.session_state.new_prizes):
-        st.write(f"{i+1}. {prize} | tỷ lệ {st.session_state.weights[i]}%")
-else:
-    st.info("Chưa có phần thưởng")
+        elif result.count("7️⃣") == 3:
+            st.session_state.balance += 10000
+            st.success("🎉 JACKPOT! +$10,000")
 
-st.subheader("Quay số")
+        elif result.count("💎") == 3:
+            st.session_state.balance += 1000
+            st.success("💎 Big win! +$1000")
 
-if st.button("Quay ngay"):
-    if st.session_state.new_prizes:
+        elif result.count("🍒") == 3:
+            st.session_state.balance += 100
+            st.success("🍒 Small win +$100")
 
-        spin_placeholder = st.empty()
+        else:
+            st.warning("You lost the spin.")
 
-        for i in range(15):
-            spin_placeholder.markdown(
-                f"## Đang quay... {random.choice(st.session_state.new_prizes)}"
-            )
-            time.sleep(0.1)
+    if st.session_state.balance == 0:
+        st.error("Game Over!")
 
-        result = random.choices(
-            st.session_state.new_prizes,
-            weights=st.session_state.weights,
-            k=1
-        )[0]
+    if st.button("Reset"):
+        st.session_state.balance = 1000
+        st.session_state.last_spin = ["❔","❔","❔"]
 
-        spin_placeholder.empty()
-
-        st.balloons()
-        st.success(f"🎉 Chúc mừng bạn đã trúng: **{result}**")
-
-    else:
-        st.warning("Chưa có phần thưởng")
-
-if st.button("Reset game"):
-    st.session_state.new_prizes = []
-    st.session_state.weights = []
-    st.success("Đã reset")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 
