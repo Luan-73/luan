@@ -1126,7 +1126,10 @@ elif menu == 'Slot machine':
 
     st.write(f"Balance: ${st.session_state.balance}")
     st.write(f"Total spins: {st.session_state.spins} | Wins: {st.session_state.wins}")
-
+    balance_display = st.empty()
+    stats_display = st.empty()
+    balance_display.write(f"Balance: ${st.session_state.balance}")
+    stats_display.write(f"Spins: {st.session_state.spins} | Wins: {st.session_state.wins}")
     slot_display = st.empty()
     slot_display.markdown(f"## {' | '.join(st.session_state.last_spin)}")
 
@@ -1135,7 +1138,8 @@ elif menu == 'Slot machine':
     if spin:
         st.session_state.balance -= bet
         st.session_state.spins += 1
-
+        balance_display.write(f"Balance: ${st.session_state.balance}")
+        stats_display.write(f"Spins: {st.session_state.spins} | Wins: {st.session_state.wins}")
         for _ in range(8):
             fake_result = random.choices(symbols, weights=weights, k=3)
             slot_display.markdown(f"## {' | '.join(fake_result)}")
@@ -1183,7 +1187,7 @@ elif menu == 'Slot machine':
             win = bet 
             st.success(f"🍋 Two lemons! +${win}")
         elif result.count("🍒") == 2:
-            win = bet//2
+            win = bet/2
             st.success(f"🍒 Two cherries! +${win}")
 
         else:
@@ -1192,7 +1196,6 @@ elif menu == 'Slot machine':
         if win > 0:
             st.session_state.balance += win
             st.session_state.wins += 1
-        st.rerun()
 
     if st.session_state.balance <= 0:
         st.error("Game Over!")
