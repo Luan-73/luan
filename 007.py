@@ -1192,6 +1192,7 @@ elif menu == 'Slot machine':
         if win > 0:
             st.session_state.balance += win
             st.session_state.wins += 1
+        st.rerun()
 
     if st.session_state.balance <= 0:
         st.error("Game Over!")
