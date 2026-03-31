@@ -1183,7 +1183,7 @@ elif menu == 'Slot machine':
             win = bet 
             st.success(f"🍋 Two lemons! +${win}")
         elif result.count("🍒") == 2:
-            win = bet/2
+            win = bet//2
             st.success(f"🍒 Two cherries! +${win}")
 
         else:
