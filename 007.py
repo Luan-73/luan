@@ -1152,6 +1152,11 @@ elif menu == 'Slot machine':
         if result.count("💀") == 3:
             st.session_state.balance = 0
             st.error("💀💀💀 You lost everything!")
+        elif result.count("💀") == 2:
+            st.session_state.balance -= 200
+            st.error("💀💀 You lost $200")
+        elif result.count("💀") == 1:
+            st.error("💀 You lost the spin!")
 
         elif result.count("7️⃣") == 3:
             win = bet * 100
@@ -1176,7 +1181,7 @@ elif menu == 'Slot machine':
             st.success(f"💎 Two diamonds! +${win}")
         elif result.count("🍋") == 2:
             win = bet 
-            st.success(f"🍋 Good win! +${win}")
+            st.success(f"🍋 Two lemons! +${win}")
         elif result.count("🍒") == 2:
             win = bet/2
             st.success(f"🍒 Two cherries! +${win}")
@@ -1188,7 +1193,7 @@ elif menu == 'Slot machine':
             st.session_state.balance += win
             st.session_state.wins += 1
 
-    if st.session_state.balance == 0:
+    if st.session_state.balance <= 0:
         st.error("Game Over!")
 
     st.subheader("Last 5 spins")
@@ -1206,7 +1211,6 @@ elif menu == 'Slot machine':
         st.session_state.wins = 0
 
     
-
 
 
 
