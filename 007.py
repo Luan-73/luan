@@ -1160,7 +1160,9 @@ elif menu == 'Slot machine':
         elif result.count("💎") == 3:
             win = bet * 20
             st.success(f"💎 Big win! +${win}")
-
+        elif result.count("🍋") == 3:
+            win = bet * 10
+            st.success(f"🍋 Good win! +${win}")
         elif result.count("🍒") == 3:
             win = bet * 5
             st.success(f"🍒 Nice win! +${win}")
@@ -1172,9 +1174,11 @@ elif menu == 'Slot machine':
         elif result.count("💎") == 2:
             win = bet * 3
             st.success(f"💎 Two diamonds! +${win}")
-
+        elif result.count("🍋") == 2:
+            win = bet 
+            st.success(f"🍋 Good win! +${win}")
         elif result.count("🍒") == 2:
-            win = bet
+            win = bet/2
             st.success(f"🍒 Two cherries! +${win}")
 
         else:
